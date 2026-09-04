@@ -1,0 +1,232 @@
+
+//Doubly linked list
+#include <stdio.h>
+#include <stdlib.h>
+struct Node 
+{
+    int data;
+    struct Node *prev;
+    struct Node *next;
+};
+
+int main()
+{
+    struct Node ni;
+    ni.data = 10;
+    ni.next = NULL;
+    ni.prev = NULL;
+    printf("NULL><%d><",ni.data);
+    printf("NULL");
+}
+
+struct Node *insertAtFirst(struct Node *head,int val)
+{
+    struct Node *newNode = malloc(sizeof(struct Node));
+    if(newNode == NULL)
+    {
+        printf("memory allocation failed\n");
+        return head;
+    }
+    newNode->data =  val;
+    newNode->prev = NULL;
+    newNode->next = NULL;
+    if(head==NULL)
+    {
+        return newNode;
+    }
+    newNode->next = head;
+    head->prev = newNode;
+    head = newNode;
+    return head;
+}
+struct Node *insertAtLast(struct Node *head,int val)
+{
+    struct Node *newNode = malloc(sizeof(struct Node));
+    if(newNode==NULL)
+    {
+        printf("Memory Allocaton failed\n");
+        return head;
+    }
+    newNode->data = val;
+    newNode->prev = NULL;
+    newNode->next = NULL;
+    if(head==NULL)
+    {
+        return newNode;
+    }
+    struct Node *temp = head;
+    while(temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+    newNode->prev = temp;
+    return head;
+}
+int main()
+{
+    struct Node *head = NULL;
+    head = insertAtFirst(head,10);
+    head = insertAtFirst(head,20);
+    head = insertAtFirst(head,30);
+    head = insertAtLast(head,40);
+    struct Node *temp = head;
+    printf("NULL <-> ");
+    while(temp!=NULL)
+    {
+        printf("%d <-> ",temp->data);
+        temp=temp->next;
+    }
+    printf("NULL");
+return 0;
+}
+
+
+//create two functions {a} insert element at any place {b} delete any node
+//insert element at any place
+#include <stdio.h>
+#include <stdlib.h>
+struct Node
+{
+    int data;
+    struct Node *prev;
+    struct Node *next;
+};
+struct Node *insertAtPosition(struct Node *head, int val, int pos)
+{
+    struct Node *newNode = malloc(sizeof(struct Node));
+
+    if(newNode == NULL)
+    {
+        printf("Memory allocation failed\n");
+        return head;
+    }
+    newNode->data = val;
+    newNode->prev = NULL;
+    newNode->next = NULL;
+    if(pos == 1)
+    {
+        newNode->next = head;
+
+        if(head != NULL)
+        {
+            head->prev = newNode;
+        }
+        head = newNode;
+        return head;
+    }
+    struct Node *temp = head;
+    for(int i = 1; i < pos - 1 && temp != NULL; i++)
+    {
+        temp = temp->next;
+    }
+    if(temp == NULL)
+    {
+        printf("Invalid position\n");
+        free(newNode);
+        return head;
+    }
+    newNode->next = temp->next;
+    newNode->prev = temp;
+    if(temp->next != NULL)
+    {
+        temp->next->prev = newNode;
+    }
+
+    temp->next = newNode;
+
+    return head;
+}
+int main()
+{
+    struct Node *head = NULL;
+    head = insertAtPosition(head, 10, 1);
+    head = insertAtPosition(head, 20, 2);
+    head = insertAtPosition(head, 40, 3);
+    head = insertAtPosition(head, 30, 3);
+    struct Node *temp = head;
+    printf("NULL <-> ");
+    while(temp != NULL)
+    {
+        printf("%d <-> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL");
+    return 0;
+}
+
+// delete any node
+#include <stdio.h>
+#include <stdlib.h>
+struct Node
+{
+    int data;
+    struct Node *prev;
+    struct Node *next;
+};
+struct Node *deleteAtPosition(struct Node *head, int pos)
+{
+    if(head == NULL)
+    {
+        printf("List is empty\n");
+        return head;
+    }
+    struct Node *temp = head;
+    if(pos == 1)
+    {
+        head = head->next;
+        if(head != NULL)
+        {
+            head->prev = NULL;
+        }
+        free(temp);
+        return head;
+    }
+    for(int i = 1; i < pos && temp != NULL; i++)
+    {
+        temp = temp->next;
+    }
+    if(temp == NULL)
+    {
+        printf("Invalid position\n");
+        return head;
+    }
+    temp->prev->next = temp->next;
+    if(temp->next != NULL)
+    {
+        temp->next->prev = temp->prev;
+    }
+    free(temp);
+    return head;
+}
+int main()
+{
+    struct Node *head = NULL;
+    struct Node *n1 = malloc(sizeof(struct Node));
+    struct Node *n2 = malloc(sizeof(struct Node));
+    struct Node *n3 = malloc(sizeof(struct Node));
+    struct Node *n4 = malloc(sizeof(struct Node));
+    n1->data = 10;
+    n1->prev = NULL;
+    n1->next = n2;
+    n2->data = 20;
+    n2->prev = n1;
+    n2->next = n3;
+    n3->data = 30;
+    n3->prev = n2;
+    n3->next = n4;
+    n4->data = 40;
+    n4->prev = n3;
+    n4->next = NULL;
+    head = n1;
+    head = deleteAtPosition(head, 3);
+    struct Node *temp = head;
+    printf("NULL <-> ");
+    while(temp != NULL)
+    {
+        printf("%d <-> ", temp->data);
+        temp = temp->next;
+    }
+    printf("NULL");
+    return 0;
+}

@@ -1,0 +1,64 @@
+
+//Single linked list
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+
+int main() 
+{
+    struct Node n1,n2,n3,n4;
+    n1.data = 4;
+    n2.data = 6;
+    n3.data = 9;
+    n4.data = 12;
+    n1.next = NULL;
+    printf("%d->",n2.data);
+    printf("%d-",n3.data);
+    printf("%d-",n4.data);
+    printf("%d->",n1.data);
+    printf("NULL");
+    return 0;
+}
+
+void insertElement(struct Node **head , int val)
+{
+    struct Node*newNode = malloc(sizeof(struct Node));
+    if(newNode==NULL)
+    {
+        printf("Can't insert element\n");
+        return ;
+    }
+    struct Node *temp = *head;
+    if(*head == NULL)
+    {
+        *head=newNode;
+        return;
+    }
+    while(temp->next != NULL)
+    {
+        temp = temp -> data;
+    }
+    temp -> next = NULL;
+}
+void printlinkedlist(struct Node *head)
+{
+    struct Node *temp=head;
+    while(temp != NULL)
+    {
+        printf("%d->",temp->data);
+        temp = temp->next;
+    }
+    printf("NULL");
+}
+int main()
+{
+    struct Node *head=NULL;
+    insertElement(&head,10);
+    insertElement(&head,20);
+    printlinkedlist(head);
+}
