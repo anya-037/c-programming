@@ -51,7 +51,7 @@ int main(){
     }
     return 0;
 }
-*/
+
 
 //deletion of array
 #include <stdio.h>
@@ -72,5 +72,82 @@ int main(){
     for (int i = 0; i < n; i++){
         printf("%d ", arr[i]);
     }
+    return 0;
+}
+*/
+
+#include <stdio.h>
+int main()
+{
+    int a[100], n, pos, value;
+    scanf("%d", &n);
+    for(int i = 0; i < n; i++)
+    {
+        scanf("%d", &a[i]);
+    }
+    scanf("%d", &pos);
+    scanf("%d", &value);
+    for(int i = n; i > pos; i--)
+    {
+        a[i] = a[i - 1];
+    }
+    a[pos] = value;
+    n++;
+
+    for(int i = 0; i < n; i++)
+    {
+        printf("%d ", a[i]);
+    }
+    return 0;
+}
+
+#include <stdio.h>
+
+//beginning
+
+int main()
+{
+    int a[100], n, value;
+
+    scanf("%d", &n);
+
+    for(int i = 0; i < n; i++)
+        scanf("%d", &a[i]);
+
+    scanf("%d", &value);
+
+    for(int i = n; i > 0; i--)
+        a[i] = a[i - 1];
+
+    a[0] = value;
+    n++;
+
+    for(int i = 0; i < n; i++)
+        printf("%d ", a[i]);
+
+    return 0;
+}
+
+//end
+
+#include <stdio.h>
+
+int main()
+{
+    int a[100], n, value;
+
+    scanf("%d", &n);
+
+    for(int i = 0; i < n; i++)
+        scanf("%d", &a[i]);
+
+    scanf("%d", &value);
+
+    a[n] = value;
+    n++;
+
+    for(int i = 0; i < n; i++)
+        printf("%d ", a[i]);
+
     return 0;
 }
